@@ -20,10 +20,18 @@ const io = new Server(server, {
 });
 
 // ── Middleware ────────────────────────────────────────────────────────────────
+const cors = require("cors");
+
 app.use(cors({
-  origin: '*',
-  credentials: true,
+  origin: [
+    "https://p-partners-rsw1.vercel.app",
+    "http://localhost:3000"
+  ],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  credentials: true
 }));
+
+app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
