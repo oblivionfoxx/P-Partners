@@ -37,11 +37,6 @@ app.options("*", cors(corsOptions));
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
-// ── Request logging ───────────────────────────────────────────────────────────
-app.use((req, _res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
-  next();
-});
 
 // ── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api', routes);
