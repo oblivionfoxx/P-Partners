@@ -22,15 +22,20 @@ const io = new Server(server, {
 // ── Middleware ────────────────────────────────────────────────────────────────
 const cors = require("cors");
 
-app.use(cors({
-  origin: [
-    "https://p-partners-rsw1.vercel.app",
-    "http://localhost:3000"
-  ],
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://p-partners-rsw1.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+app.use(cors());
 
 // handle preflight requests
 app.options("*", cors());
