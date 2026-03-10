@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const BASE = "https://p-partners-zjfl.vercel.app";
 const getToken = () => localStorage.getItem("sb_token");
 const headers  = () => ({ "Content-Type":"application/json", ...(getToken()?{Authorization:`Bearer ${getToken()}`}:{}) });
 const req = async (method, path, body) => {
