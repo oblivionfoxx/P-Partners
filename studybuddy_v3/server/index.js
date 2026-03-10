@@ -56,14 +56,7 @@ const PORT       = process.env.PORT || 5000;
 const MONGO_URI  = process.env.MONGODB_URI || 'mongodb://localhost:27017/studybuddy';
 
 mongoose.connect(MONGO_URI)
-  .then(() => {
-    console.log('[MongoDB] Connected to', MONGO_URI);
-    server.listen(PORT, () => {
-      console.log(`[Server] StudyBuddy API running on http://localhost:${PORT}`);
-      console.log(`[Socket] WebSocket server ready`);
-    });
-  })
-  .catch(err => {
-    console.error('[MongoDB] Connection failed:', err.message);
-    process.exit(1);
-  });
+  .then(() => console.log('[MongoDB] Connected to', MONGO_URI))
+  .catch(err => console.error('[MongoDB] Connection failed:', err.message));
+
+module.exports = server;
