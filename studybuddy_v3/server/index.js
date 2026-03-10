@@ -22,27 +22,21 @@ const io = new Server(server, {
 // ── Middleware ────────────────────────────────────────────────────────────────
 const cors = require("cors");
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://p-partners-rsw1.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
+// CORS configuration
+const corsOptions = {
+  origin: "https://p-partners-rsw1.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+};
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
+app.use(cors(corsOptions));
 
-  next();
-});
-
-app.use(cors());
-
-// handle preflight requests
-app.options("*", cors());
+// important for preflight requests
+app.options("*", cors(corsOptions));
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
-
 // ── Request logging ───────────────────────────────────────────────────────────
 app.use((req, _res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
