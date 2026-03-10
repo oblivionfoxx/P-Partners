@@ -28,9 +28,14 @@ app.use(cors({
     "http://localhost:3000"
   ],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
-app.use(express.json({ limit: '10mb' }));
+
+// handle preflight requests
+app.options("*", cors());
+
+app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // ── Request logging ───────────────────────────────────────────────────────────
