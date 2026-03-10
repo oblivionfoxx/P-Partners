@@ -53,7 +53,7 @@ initSockets(io);
 
 // ── Start ─────────────────────────────────────────────────────────────────────
 const PORT       = process.env.PORT || 5000;
-const MONGO_URI  = process.env.MONGODB_URI || 'mongodb://localhost:27017/studybuddy';
+const MONGO_URI  = process.env.MONGODB_URI || 'mongodb://localhost:27017/Ppartners';
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('[MongoDB] Connected to', MONGO_URI))
